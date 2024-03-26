@@ -7,12 +7,12 @@
 #pragma warning(disable : 4996)
 
 //#define DEFAULT_HTML_FILE "index.html"
-uint16_t DEFAULT_PORT = 80;
+#define DEFAULT_PORT 80
 #define CONFIG_FILE "simplihost.cfg"
 //#define BUFFER_SIZE 16000
 //#define MAX_FILE_SIZE 1048576
-unsigned long long MAX_PATH_SIZE = 16384; // Choose an appropriate size for paths
-unsigned long long MAX_HEADER_SIZE = 16384; // Choose an appropriate size for headers
+int MAX_PATH_SIZE = 16384; // Choose an appropriate size for paths
+int MAX_HEADER_SIZE = 16384; // Choose an appropriate size for headers
 int transfer = 2000;
 //#define MAX_CONTENT_SIZE 1048576 // Adjust this size as needed
 
@@ -223,18 +223,10 @@ int configure() {
 
     // Read the file line by line
     while (fgets(line, sizeof(line), configFile)) {
-        // Check if the line starts with "PORT"
-        if (strncmp(line, "PORT", 4) == 0) {
-            // Extract the number after "PORT"
-            int port;
-            if (sscanf(line, "PORT %d", &port) == 1) {
-                DEFAULT_PORT = port;
-                //break; // Stop reading the file after finding the PORT line
-            }
-        }
+        
         if (strncmp(line, "MPS", 3) == 0) {
             // Extract the number after "PORT"
-            unsigned long long mps;
+            int mps;
             if (sscanf(line, "MPS %d", &mps) == 1) {
                 MAX_PATH_SIZE = mps;
                 //break; // Stop reading the file after finding the PORT line
@@ -242,7 +234,7 @@ int configure() {
         }
         if (strncmp(line, "MHS", 3) == 0) {
             // Extract the number after "PORT"
-            unsigned long long mhs;
+            int mhs;
             if (sscanf(line, "MHS %d", &mhs) == 1) {
                 MAX_HEADER_SIZE = mhs;
                 //break; // Stop reading the file after finding the PORT line
@@ -250,7 +242,7 @@ int configure() {
         }
         if (strncmp(line, "PTT", 3) == 0) {
             // Extract the number after "PORT"
-            unsigned long long ptt;
+            int ptt;
             if (sscanf(line, "PTT %d", &ptt) == 1) {
                 transfer = ptt;
                 //break; // Stop reading the file after finding the PORT line
@@ -269,7 +261,7 @@ int main(int argc, char* argv[]) {
     if (argc == 2) {
         if (strcmp(argv[1], "help") == 0) {
             printf("Simplihost 4.2.0 starting...\n");
-            printf("Simplihost is a simple and lightweight web server. Like all websites, it hosts on port 80 by default. The default pessimistic transfer time is 2000 ms.\n");
+            printf("Simplihost is a simple and lightweight web server. Like all websites, it hosts on port 80. The default pessimistic transfer time is 2000 ms.\n");
             return 0;
         }
         
