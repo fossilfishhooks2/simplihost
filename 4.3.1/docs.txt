@@ -1,0 +1,2 @@
+same as 4.3.0
+  added stability for multithread variable access
