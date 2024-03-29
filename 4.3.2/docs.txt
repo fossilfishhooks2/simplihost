@@ -1,0 +1,2 @@
+general console outputs cleaned up
+  added try to handleclient function to increase stability
