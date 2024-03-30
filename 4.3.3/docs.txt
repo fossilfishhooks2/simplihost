@@ -1,0 +1,3 @@
+no big changes
+  removed unnessecary wait at beginning (used to be for another process)
+  exit handler now gracefully destroys network interface
